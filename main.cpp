@@ -5,17 +5,22 @@
 #include "Gen_algoritm.h"
 #include "Task_Kom.h"
 #include <vector>
+#include <Python.h>
 
 using namespace std;
 
 int main()
 {
-    Task_Kom t_kom = Task_Kom(10);
-    t_kom.print_coords();
+    Task_Kom t_kom = Task_Kom(0, "data.csv");
+    //t_kom.print_coords();
     t_kom.print_matrx();
     vector<vector<double>> matrx_dist = t_kom.get_matrx();
     //t_kom.create_data();
-    Gen_algoritm gen = Gen_algoritm();
+    Gen_algoritm gen = Gen_algoritm(matrx_dist, 100);
+    gen.run_gen_algoritm(100);
+    //gen.print_generations();
+    gen.write_decision();
+
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

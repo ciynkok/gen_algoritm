@@ -5,20 +5,28 @@
 #include <fstream>
 #include <filesystem>
 #include <iostream>
+#include <sstream>
 
 
-Task_Kom::Task_Kom(int n, const string& filename)
+Task_Kom::Task_Kom(int n, const string& filename, int seed)
 {
 	this->n = n;
+	this->seed = seed;
 	if (filename == "")
 	{
+		if (n = 0)
+		{
+			cerr << "Invalid parameters" << endl;
+		}
 		generate_coords();
+		fill_matrx();
+		create_data();
 	}
 	else
 	{
 		read_file(filename);
+		fill_matrx();
 	}
-	fill_matrx();
 }
 
 const double Task_Kom::calculation_dist(vector<int> a, vector<int> b)
@@ -36,12 +44,20 @@ const double Task_Kom::calculation_dist(vector<int> a, vector<int> b)
 	return sqrt(res);
 }
 
-const int Task_Kom::generate_rand(int a, int b)
+int Task_Kom::generate_rand(int a, int b, int seed)
 {
-	random_device rd;
-	mt19937 gen(rd());
 	uniform_int_distribution<> dist(a, b);
-	return dist(gen);
+	if (seed == 0)
+	{
+		random_device rd;
+		mt19937 gen(rd());
+		return dist(gen);
+	}
+	else
+	{
+		mt19937 gen(seed);
+		return dist(gen);
+	}
 }
 
 void Task_Kom::print_coords()
@@ -68,7 +84,7 @@ void Task_Kom::create_data()
 {
 	ofstream file("data.csv");
 	if (!file.is_open()) {
-		std::cerr << "Error opening file: output.csv" << std::endl;
+		std::cerr << "Error opening file: data.csv" << std::endl;
 		return;
 	}
 	file << "x,y" << endl;
@@ -90,10 +106,26 @@ void Task_Kom::read_file(const string& filename)
 	ifstream file(filename);
 
 	if (!file.is_open()) {
-		cerr << "Error opening file: " << filename << std::endl;
+		cerr << "Error opening file: data.csv" << filename << std::endl;
 		file.close();
 	}
+	string line;
+	getline(file, line);
 
+	while (getline(file, line))
+	{
+		vector<int> row;
+		stringstream ss(line);
+		string val;
+		while (getline(ss, val, ','))
+		{
+			row.push_back(stod(val));
+		}
+		coords.push_back(row);
+	}
+
+	this->n = this->coords.size();
+	file.close();
 }
 
 bool Task_Kom::check_coord(int x, int y)
@@ -117,12 +149,12 @@ void Task_Kom::generate_coords()
 	int max_y = 50;
 	for (int i = 0; i < n; i++)
 	{
-		int x = this->generate_rand(min_x, max_x);
-		int y = this->generate_rand(min_y, max_y);
-		while (this->check_coord(x, y))
+		int x = generate_rand(min_x, max_x, seed);
+		int y = generate_rand(min_y, max_y, seed);
+		while (check_coord(x, y))
 		{
-			x = this->generate_rand(min_x, max_x);
-			y = this->generate_rand(min_y, max_y);
+			x = generate_rand(min_x, max_x, seed);
+			y = generate_rand(min_y, max_y, seed);
 			cout << "5" << endl;
 		}
 		vector<int> vec = { x, y };
@@ -158,5 +190,3 @@ void Task_Kom::fill_matrx()
 		this->matrx_dist.push_back(vec);
 	}
 }
-
-
