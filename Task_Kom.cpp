@@ -14,7 +14,7 @@ Task_Kom::Task_Kom(int n, const string& filename, int seed)
 	this->seed = seed;
 	if (filename == "")
 	{
-		if (n = 0)
+		if (n == 0)
 		{
 			cerr << "Invalid parameters" << endl;
 		}

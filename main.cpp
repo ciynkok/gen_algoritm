@@ -9,6 +9,7 @@
 
 using namespace std;
 
+
 int main()
 {
     Task_Kom t_kom = Task_Kom(0, "data.csv");
@@ -20,7 +21,6 @@ int main()
     gen.run_gen_algoritm(100);
     //gen.print_generations();
     gen.write_decision();
-
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"

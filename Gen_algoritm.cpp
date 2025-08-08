@@ -103,7 +103,7 @@ void Gen_algoritm::run_gen_algoritm(int num_gen)
 {
 	vector<individ> population = generations[0];
 	vector<double> list_prob;
-	for (int i = 0; i < num_gen - 1; i++)
+	for (int i = 0; i < num_gen; i++)
 	{
 		int par_1, par_2;
 		individ ind;
