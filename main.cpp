@@ -5,7 +5,6 @@
 #include "Gen_algoritm.h"
 #include "Task_Kom.h"
 #include <vector>
-#include <Python.h>
 
 using namespace std;
 
