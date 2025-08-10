@@ -40,8 +40,5 @@
     <None Include="decision.csv">
       <Filter>Файлы ресурсов</Filter>
     </None>
-    <None Include="print_graph.py">
-      <Filter>Исходные файлы</Filter>
-    </None>
   </ItemGroup>
 </Project>
