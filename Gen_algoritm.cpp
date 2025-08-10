@@ -14,7 +14,6 @@ Gen_algoritm::Gen_algoritm(vector<vector<double>> matrx, int size_populate, int 
 	matrx_dist = matrx;
 	n = matrx.size();
 	this->seed = seed;
-	cout << n << endl;
 	init_gen(size_populate);
 }
 

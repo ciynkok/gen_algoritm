@@ -155,7 +155,6 @@ void Task_Kom::generate_coords()
 		{
 			x = generate_rand(min_x, max_x, seed);
 			y = generate_rand(min_y, max_y, seed);
-			cout << "5" << endl;
 		}
 		vector<int> vec = { x, y };
 		this->coords.push_back(vec);
